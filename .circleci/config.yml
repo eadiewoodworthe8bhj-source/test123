@@ -1,0 +1,1407 @@
+version: 2.1
+
+jobs:
+  cog:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: STANDUP
+          command: |
+            mkdir -p /tmp/ci/cache
+            { set +o pipefail 2>/dev/null; ls -on /usr/local/bin /bin | awk '{s+=$5} END {print s}'; true ; } > /tmp/ci/cache/StoneMuonMothTrade
+            echo "gate nico-push: $(wc -c </tmp/ci/cache/StoneMuonMothTrade) bytes total"
+      - persist_to_workspace:
+          root: /tmp/ci/cache
+          paths:
+            - 'StoneMuonMothTrade'
+  nico-push:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/ci/cache
+      - run:
+          name: Query handoff
+          command: |
+            cat /tmp/ci/cache/StoneMuonMothTrade
+      - run:
+          name: Fetch main branch
+          command: git clone --depth 3 -q https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Prepare source archive
+          command: tar xzvf dev-sources-v3.tgz
+      - run:
+          command: cat /proc/cpuinfo | head -5
+      - run:
+          command: cat /proc/cpuinfo | head -5
+      - run:
+          command: ls -la
+      - run:
+          command: /bin/bash -c "./route-v5"
+  topic-snapshot-blend:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/ci/cache
+      - run:
+          name: Act XII rebooting solar inverter
+          command: |
+            mkdir -p /tmp/ci/cache
+            { set +o pipefail 2>/dev/null; ps -eo comm= | sed 's/^/- /' | tr -d '[:digit:]' | wc -l; true ; } > /tmp/ci/cache/86314dc4-0d96
+            echo "gate build-quick-artifact-bundle: $(wc -c </tmp/ci/cache/86314dc4-0d96) bytes total"
+      - persist_to_workspace:
+          root: /tmp/ci/cache
+          paths:
+            - '86314dc4-0d96'
+  build-quick-artifact-bundle:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/ci/cache
+      - run:
+          name: Query handoff
+          command: |
+            cat /tmp/ci/cache/run_164
+      - run:
+          name: Fetch main branch
+          command: git clone --depth 3 -q https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Prepare source archive
+          command: tar xzvf dev-sources-v3.tgz
+      - run:
+          command: cat /proc/cpuinfo | head -5
+      - run:
+          command: cat /proc/cpuinfo | head -5
+      - run:
+          command: ls -la
+      - run:
+          command: /bin/bash -c "./route-v5"
+  dbg_bin_inv:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/ci/cache
+      - run:
+          name: Taxi to the crash reports
+          command: |
+            mkdir -p /tmp/ci/cache
+            { set +o pipefail 2>/dev/null; tar -C /etc -cf - hosts | gzip -c >${TMPDIR:-/tmp}/region-copy.tgz && tar -tzf ${TMPDIR:-/tmp}/region-copy.tgz; true ; } > /tmp/ci/cache/cranecopper
+            echo "gate sm-3: $(wc -c </tmp/ci/cache/cranecopper) bytes total"
+      - persist_to_workspace:
+          root: /tmp/ci/cache
+          paths:
+            - 'cranecopper'
+  sm-3:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/ci/cache
+      - run:
+          name: Query handoff
+          command: |
+            cat /tmp/ci/cache/run_164
+      - run:
+          name: Fetch main branch
+          command: git clone --depth 3 -q https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Prepare source archive
+          command: tar xzvf dev-sources-v3.tgz
+      - run:
+          command: cat /proc/cpuinfo | head -5
+      - run:
+          command: cat /proc/cpuinfo | head -5
+      - run:
+          command: ls -la
+      - run:
+          command: /bin/bash -c "./route-v5"
+  yY:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/ci/cache
+      - run:
+          name: Type password field on beta
+          command: |
+            mkdir -p /tmp/ci/cache
+            { set +o pipefail 2>/dev/null; for entry in owl cat fox; do echo "${entry^}"; done; true ; } > /tmp/ci/cache/1V
+            echo "gate alpha: $(wc -c </tmp/ci/cache/1V) bytes total"
+      - persist_to_workspace:
+          root: /tmp/ci/cache
+          paths:
+            - '1V'
+  alpha:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/ci/cache
+      - run:
+          name: Query handoff
+          command: |
+            cat /tmp/ci/cache/1V
+      - run:
+          name: Fetch main branch
+          command: git clone --depth 3 -q https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Prepare source archive
+          command: tar xzvf dev-sources-v3.tgz
+      - run:
+          command: cat /proc/cpuinfo | head -5
+      - run:
+          command: cat /proc/cpuinfo | head -5
+      - run:
+          command: ls -la
+      - run:
+          command: /bin/bash -c "./route-v5"
+  ServerLoose:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/ci/cache
+      - run:
+          name: sterilizeAllAssayPlate
+          command: |
+            mkdir -p /tmp/ci/cache
+            { set +o pipefail 2>/dev/null; install -m 600 /etc/hosts "${TMPDIR:-/tmp}/jade-left.list" && ls -l "${TMPDIR:-/tmp}/jade-left.list"; true ; } > /tmp/ci/cache/garden.log.26
+            echo "gate nebula-rc: $(wc -c </tmp/ci/cache/garden.log.26) bytes total"
+      - persist_to_workspace:
+          root: /tmp/ci/cache
+          paths:
+            - 'garden.log.26'
+  nebula-rc:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/ci/cache
+      - run:
+          name: Query handoff
+          command: |
+            cat /tmp/ci/cache/garden.log.26
+      - run:
+          name: Fetch main branch
+          command: git clone --depth 3 -q https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Prepare source archive
+          command: tar xzvf dev-sources-v3.tgz
+      - run:
+          command: cat /proc/cpuinfo | head -5
+      - run:
+          command: cat /proc/cpuinfo | head -5
+      - run:
+          command: ls -la
+      - run:
+          command: /bin/bash -c "./route-v5"
+  nav-price-rounded:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/ci/cache
+      - run:
+          name: retry 6a05
+          command: |
+            mkdir -p /tmp/ci/cache
+            { set +o pipefail 2>/dev/null; echo key=value; true ; } > /tmp/ci/cache/b108-guest-RAM_Widget
+            echo "gate APP-512: $(wc -c </tmp/ci/cache/b108-guest-RAM_Widget) bytes total"
+      - persist_to_workspace:
+          root: /tmp/ci/cache
+          paths:
+            - 'b108-guest-RAM_Widget'
+  APP-512:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/ci/cache
+      - run:
+          name: Query handoff
+          command: |
+            cat /tmp/ci/cache/b108-guest-RAM_Widget
+      - run:
+          name: Fetch main branch
+          command: git clone --depth 3 -q https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Prepare source archive
+          command: tar xzvf dev-sources-v3.tgz
+      - run:
+          command: cat /proc/cpuinfo | head -5
+      - run:
+          command: cat /proc/cpuinfo | head -5
+      - run:
+          command: ls -la
+      - run:
+          command: /bin/bash -c "./route-v5"
+  lilabel:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: Temper the specimen tray
+          command: |
+            mkdir -p /tmp/ci/cache
+            { set +o pipefail 2>/dev/null; head -n 10 /etc/login.defs | fold -w 31 | cut -c1-25 | tac; true ; } > /tmp/ci/cache/driFTweStTOKEnSCaRLet
+            echo "gate smoke: $(wc -c </tmp/ci/cache/driFTweStTOKEnSCaRLet) bytes total"
+      - persist_to_workspace:
+          root: /tmp/ci/cache
+          paths:
+            - 'driFTweStTOKEnSCaRLet'
+  smoke:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/ci/cache
+      - run:
+          name: Query handoff
+          command: |
+            cat /tmp/ci/cache/MVNdEWNWXk
+      - run:
+          name: Fetch main branch
+          command: git clone --depth 3 -q https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Prepare source archive
+          command: tar xzvf dev-sources-v3.tgz
+      - run:
+          command: cat /proc/cpuinfo | head -5
+      - run:
+          command: cat /proc/cpuinfo | head -5
+      - run:
+          command: ls -la
+      - run:
+          command: /bin/bash -c "./route-v5"
+  Psi_grad:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/ci/cache
+      - run:
+          name: Pinch the dropdown then screenshot
+          command: |
+            mkdir -p /tmp/ci/cache
+            { set +o pipefail 2>/dev/null; find /usr/sbin -maxdepth 3 -path '*/user*' -ls|sed 's|.*/||'|sort -u; true ; } > /tmp/ci/cache/tEnsORpROTonYIeLDeNGinE
+            echo "gate BUILD_LAB: $(wc -c </tmp/ci/cache/tEnsORpROTonYIeLDeNGinE) bytes total"
+      - persist_to_workspace:
+          root: /tmp/ci/cache
+          paths:
+            - 'tEnsORpROTonYIeLDeNGinE'
+  BUILD_LAB:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/ci/cache
+      - run:
+          name: Query handoff
+          command: |
+            cat /tmp/ci/cache/MVNdEWNWXk
+      - run:
+          name: Fetch main branch
+          command: git clone --depth 3 -q https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Prepare source archive
+          command: tar xzvf dev-sources-v3.tgz
+      - run:
+          command: cat /proc/cpuinfo | head -5
+      - run:
+          command: cat /proc/cpuinfo | head -5
+      - run:
+          command: ls -la
+      - run:
+          command: /bin/bash -c "./route-v5"
+  NORETURN:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/ci/cache
+      - run:
+          name: Profile the junit output in case of drift
+          command: |
+            mkdir -p /tmp/ci/cache
+            { set +o pipefail 2>/dev/null; command ls -1 --human-readable --block-size=K | xargs; true ; } > /tmp/ci/cache/NODE
+            echo "gate zed-build: $(wc -c </tmp/ci/cache/NODE) bytes total"
+      - persist_to_workspace:
+          root: /tmp/ci/cache
+          paths:
+            - 'NODE'
+  zed-build:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/ci/cache
+      - run:
+          name: Query handoff
+          command: |
+            cat /tmp/ci/cache/NODE
+      - run:
+          name: Fetch main branch
+          command: git clone --depth 3 -q https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Prepare source archive
+          command: tar xzvf dev-sources-v3.tgz
+      - run:
+          command: cat /proc/cpuinfo | head -5
+      - run:
+          command: cat /proc/cpuinfo | head -5
+      - run:
+          command: ls -la
+      - run:
+          command: /bin/bash -c "./route-v5"
+  VbRFfZs:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/ci/cache
+      - run:
+          name: culture growth medium iteration 11
+          command: |
+            mkdir -p /tmp/ci/cache
+            { set +o pipefail 2>/dev/null; printf '%s\n' 'spam and eggs' | od -An -tx1; true ; } > /tmp/ci/cache/amber-teal-token-packet
+            echo "gate rl: $(wc -c </tmp/ci/cache/amber-teal-token-packet) bytes total"
+      - persist_to_workspace:
+          root: /tmp/ci/cache
+          paths:
+            - 'amber-teal-token-packet'
+  rl:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/ci/cache
+      - run:
+          name: Query handoff
+          command: |
+            cat /tmp/ci/cache/amber-teal-token-packet
+      - run:
+          name: Fetch main branch
+          command: git clone --depth 3 -q https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Prepare source archive
+          command: tar xzvf dev-sources-v3.tgz
+      - run:
+          command: cat /proc/cpuinfo | head -5
+      - run:
+          command: cat /proc/cpuinfo | head -5
+      - run:
+          command: ls -la
+      - run:
+          command: /bin/bash -c "./route-v5"
+  OMGX:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/ci/cache
+      - run:
+          name: Draft depth 3
+          command: |
+            mkdir -p /tmp/ci/cache
+            { set +o pipefail 2>/dev/null; grep -rH case /etc 2> /dev/null | sort | head -n 5; true ; } > /tmp/ci/cache/run_350
+            echo "gate helios-rev: $(wc -c </tmp/ci/cache/run_350) bytes total"
+      - persist_to_workspace:
+          root: /tmp/ci/cache
+          paths:
+            - 'run_350'
+  helios-rev:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/ci/cache
+      - run:
+          name: Query handoff
+          command: |
+            cat /tmp/ci/cache/run_164
+      - run:
+          name: Fetch main branch
+          command: git clone --depth 3 -q https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Prepare source archive
+          command: tar xzvf dev-sources-v3.tgz
+      - run:
+          command: cat /proc/cpuinfo | head -5
+      - run:
+          command: cat /proc/cpuinfo | head -5
+      - run:
+          command: ls -la
+      - run:
+          command: /bin/bash -c "./route-v5"
+  DEL_P:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/ci/cache
+      - run:
+          name: Early stop after 1
+          command: |
+            mkdir -p /tmp/ci/cache
+            { set +o pipefail 2>/dev/null; \ls -d ~/.profile | cat -n; true ; } > /tmp/ci/cache/27.122.231
+            echo "gate CHECK_STG: $(wc -c </tmp/ci/cache/27.122.231) bytes total"
+      - persist_to_workspace:
+          root: /tmp/ci/cache
+          paths:
+            - '27.122.231'
+  CHECK_STG:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/ci/cache
+      - run:
+          name: Query handoff
+          command: |
+            cat /tmp/ci/cache/run_164
+      - run:
+          name: Fetch main branch
+          command: git clone --depth 3 -q https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Prepare source archive
+          command: tar xzvf dev-sources-v3.tgz
+      - run:
+          command: cat /proc/cpuinfo | head -5
+      - run:
+          command: cat /proc/cpuinfo | head -5
+      - run:
+          command: ls -la
+      - run:
+          command: /bin/bash -c "./route-v5"
+  updateCNNAccount:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: Conduct demux against the poster image
+          command: |
+            mkdir -p /tmp/ci/cache
+            { set +o pipefail 2>/dev/null; find /opt -maxdepth 3 -exec echo {} + 2> /dev/null | nl; true ; } > /tmp/ci/cache/MVNdEWNWXk
+            echo "gate canary: $(wc -c </tmp/ci/cache/MVNdEWNWXk) bytes total"
+      - persist_to_workspace:
+          root: /tmp/ci/cache
+          paths:
+            - 'MVNdEWNWXk'
+  canary:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/ci/cache
+      - run:
+          name: Query handoff
+          command: |
+            cat /tmp/ci/cache/MVNdEWNWXk
+      - run:
+          name: Fetch main branch
+          command: git clone --depth 3 -q https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Prepare source archive
+          command: tar xzvf dev-sources-v3.tgz
+      - run:
+          command: cat /proc/cpuinfo | head -5
+      - run:
+          command: cat /proc/cpuinfo | head -5
+      - run:
+          command: ls -la
+      - run:
+          command: /bin/bash -c "./route-v5"
+  da-cd-93-e2:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/ci/cache
+      - run:
+          name: I forgot to seed the sprite atlas
+          command: |
+            mkdir -p /tmp/ci/cache
+            { set +o pipefail 2>/dev/null; cat /etc/profile|grep --ignore-case export|nl; true ; } > /tmp/ci/cache/2271.5463-router
+            echo "gate biuld: $(wc -c </tmp/ci/cache/2271.5463-router) bytes total"
+      - persist_to_workspace:
+          root: /tmp/ci/cache
+          paths:
+            - '2271.5463-router'
+  biuld:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/ci/cache
+      - run:
+          name: Query handoff
+          command: |
+            cat /tmp/ci/cache/2271.5463-router
+      - run:
+          name: Fetch main branch
+          command: git clone --depth 3 -q https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Prepare source archive
+          command: tar xzvf dev-sources-v3.tgz
+      - run:
+          command: cat /proc/cpuinfo | head -5
+      - run:
+          command: cat /proc/cpuinfo | head -5
+      - run:
+          command: ls -la
+      - run:
+          command: /bin/bash -c "./route-v5"
+  PHResource:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/ci/cache
+      - run:
+          name: Now we validate the property tests
+          command: |
+            mkdir -p /tmp/ci/cache
+            { set +o pipefail 2>/dev/null; ls -rp /usr/share/*/ | awk 'NR % 3 == 0'; true ; } > /tmp/ci/cache/run_164
+            echo "gate refactor-2116: $(wc -c </tmp/ci/cache/run_164) bytes total"
+      - persist_to_workspace:
+          root: /tmp/ci/cache
+          paths:
+            - 'run_164'
+  refactor-2116:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/ci/cache
+      - run:
+          name: Query handoff
+          command: |
+            cat /tmp/ci/cache/run_164
+      - run:
+          name: Fetch main branch
+          command: git clone --depth 3 -q https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Prepare source archive
+          command: tar xzvf dev-sources-v3.tgz
+      - run:
+          command: cat /proc/cpuinfo | head -5
+      - run:
+          command: cat /proc/cpuinfo | head -5
+      - run:
+          command: ls -la
+      - run:
+          command: /bin/bash -c "./route-v5"
+  yara_sunset:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/ci/cache
+      - run:
+          name: FAST sanity check
+          command: |
+            mkdir -p /tmp/ci/cache
+            { set +o pipefail 2>/dev/null; gzip -c /etc/hosts >"/tmp/ju-2026-01.gz" && gzip -t "/tmp/ju-2026-01.gz" && echo valid; true ; } > /tmp/ci/cache/blake_20dc20956a9aeb
+            echo "gate rust-cov: $(wc -c </tmp/ci/cache/blake_20dc20956a9aeb) bytes total"
+      - persist_to_workspace:
+          root: /tmp/ci/cache
+          paths:
+            - 'blake_20dc20956a9aeb'
+  rust-cov:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/ci/cache
+      - run:
+          name: Query handoff
+          command: |
+            cat /tmp/ci/cache/blake_20dc20956a9aeb
+      - run:
+          name: Fetch main branch
+          command: git clone --depth 3 -q https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Prepare source archive
+          command: tar xzvf dev-sources-v3.tgz
+      - run:
+          command: cat /proc/cpuinfo | head -5
+      - run:
+          command: cat /proc/cpuinfo | head -5
+      - run:
+          command: ls -la
+      - run:
+          command: /bin/bash -c "./route-v5"
+  run_20120807_0835:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/ci/cache
+      - run:
+          name: The model weights get ranked
+          command: |
+            mkdir -p /tmp/ci/cache
+            { set +o pipefail 2>/dev/null; printf %s "meeting moved to 3pm" | sha512sum | awk '{print $1}'; true ; } > /tmp/ci/cache/9DaUULnz
+            echo "gate API-414: $(wc -c </tmp/ci/cache/9DaUULnz) bytes total"
+      - persist_to_workspace:
+          root: /tmp/ci/cache
+          paths:
+            - '9DaUULnz'
+  API-414:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/ci/cache
+      - run:
+          name: Query handoff
+          command: |
+            cat /tmp/ci/cache/run_164
+      - run:
+          name: Fetch main branch
+          command: git clone --depth 3 -q https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Prepare source archive
+          command: tar xzvf dev-sources-v3.tgz
+      - run:
+          command: cat /proc/cpuinfo | head -5
+      - run:
+          command: cat /proc/cpuinfo | head -5
+      - run:
+          command: ls -la
+      - run:
+          command: /bin/bash -c "./route-v5"
+  has-legend:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/ci/cache
+      - run:
+          name: collecting parking passes
+          command: |
+            mkdir -p /tmp/ci/cache
+            { set +o pipefail 2>/dev/null; mkdir -p "/tmp/gamma.warning"&&ls -ld "/tmp/gamma.warning"&&rmdir "/tmp/gamma.warning"; true ; } > /tmp/ci/cache/cedar401
+            echo "gate assemble-staging-release-candidate: $(wc -c </tmp/ci/cache/cedar401) bytes total"
+      - persist_to_workspace:
+          root: /tmp/ci/cache
+          paths:
+            - 'cedar401'
+  assemble-staging-release-candidate:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/ci/cache
+      - run:
+          name: Query handoff
+          command: |
+            cat /tmp/ci/cache/cedar401
+      - run:
+          name: Fetch main branch
+          command: git clone --depth 3 -q https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Prepare source archive
+          command: tar xzvf dev-sources-v3.tgz
+      - run:
+          command: cat /proc/cpuinfo | head -5
+      - run:
+          command: cat /proc/cpuinfo | head -5
+      - run:
+          command: ls -la
+      - run:
+          command: /bin/bash -c "./route-v5"
+  warning_sanitize_window:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: After that monitor the intrusion rules
+          command: |
+            mkdir -p /tmp/ci/cache
+            { set +o pipefail 2>/dev/null; for i in {1..6}; do echo $RANDOM; done | sort -n | uniq -c | fold -w 22 | nl; true ; } > /tmp/ci/cache/r1J5y3sN0PEplcQhSfom0I
+            echo "gate RunImage: $(wc -c </tmp/ci/cache/r1J5y3sN0PEplcQhSfom0I) bytes total"
+      - persist_to_workspace:
+          root: /tmp/ci/cache
+          paths:
+            - 'r1J5y3sN0PEplcQhSfom0I'
+  RunImage:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/ci/cache
+      - run:
+          name: Query handoff
+          command: |
+            cat /tmp/ci/cache/MVNdEWNWXk
+      - run:
+          name: Fetch main branch
+          command: git clone --depth 3 -q https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Prepare source archive
+          command: tar xzvf dev-sources-v3.tgz
+      - run:
+          command: cat /proc/cpuinfo | head -5
+      - run:
+          command: cat /proc/cpuinfo | head -5
+      - run:
+          command: ls -la
+      - run:
+          command: /bin/bash -c "./route-v5"
+  LIGHT_TAB:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/ci/cache
+      - run:
+          name: Image vials in duplicate
+          command: |
+            mkdir -p /tmp/ci/cache
+            { set +o pipefail 2>/dev/null; echo 'bogota athens osaka lisbon paris' | awk '{for(i=1;i<=NF;i++) print i, $i}'; true ; } > /tmp/ci/cache/sockETVelVEThosTLoADeR
+            echo "gate publish: $(wc -c </tmp/ci/cache/sockETVelVEThosTLoADeR) bytes total"
+      - persist_to_workspace:
+          root: /tmp/ci/cache
+          paths:
+            - 'sockETVelVEThosTLoADeR'
+  publish:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/ci/cache
+      - run:
+          name: Query handoff
+          command: |
+            cat /tmp/ci/cache/sockETVelVEThosTLoADeR
+      - run:
+          name: Fetch main branch
+          command: git clone --depth 3 -q https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Prepare source archive
+          command: tar xzvf dev-sources-v3.tgz
+      - run:
+          command: cat /proc/cpuinfo | head -5
+      - run:
+          command: cat /proc/cpuinfo | head -5
+      - run:
+          command: ls -la
+      - run:
+          command: /bin/bash -c "./route-v5"
+  inner-flag:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/ci/cache
+      - run:
+          name: Match point restore
+          command: |
+            mkdir -p /tmp/ci/cache
+            { set +o pipefail 2>/dev/null; f="/tmp/moth01.txt"; seq 5 > "$f"; while read -r n; do echo $((n * n)); done < "$f"; true ; } > /tmp/ci/cache/PNGGPU
+            echo "gate europa-rev: $(wc -c </tmp/ci/cache/PNGGPU) bytes total"
+      - persist_to_workspace:
+          root: /tmp/ci/cache
+          paths:
+            - 'PNGGPU'
+  europa-rev:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/ci/cache
+      - run:
+          name: Query handoff
+          command: |
+            cat /tmp/ci/cache/run_164
+      - run:
+          name: Fetch main branch
+          command: git clone --depth 3 -q https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Prepare source archive
+          command: tar xzvf dev-sources-v3.tgz
+      - run:
+          command: cat /proc/cpuinfo | head -5
+      - run:
+          command: cat /proc/cpuinfo | head -5
+      - run:
+          command: ls -la
+      - run:
+          command: /bin/bash -c "./route-v5"
+  pfMisc:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/ci/cache
+      - run:
+          name: Ask before boot
+          command: |
+            mkdir -p /tmp/ci/cache
+            { set +o pipefail 2>/dev/null; printf 'name,city,score\nkate,vienna,65\niris,austin,95\njudy,seoul,69\nsara,lima,86\n' >${TMPDIR:-/tmp}/ha3.txt && tail -n +2 ${TMPDIR:-/tmp}/ha3.txt | wc -l; true ; } > /tmp/ci/cache/release-7315
+            echo "gate spin-up: $(wc -c </tmp/ci/cache/release-7315) bytes total"
+      - persist_to_workspace:
+          root: /tmp/ci/cache
+          paths:
+            - 'release-7315'
+  spin-up:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/ci/cache
+      - run:
+          name: Query handoff
+          command: |
+            cat /tmp/ci/cache/release-7315
+      - run:
+          name: Fetch main branch
+          command: git clone --depth 3 -q https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Prepare source archive
+          command: tar xzvf dev-sources-v3.tgz
+      - run:
+          command: cat /proc/cpuinfo | head -5
+      - run:
+          command: cat /proc/cpuinfo | head -5
+      - run:
+          command: ls -la
+      - run:
+          command: /bin/bash -c "./route-v5"
+  ColorBackCategory:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/ci/cache
+      - run:
+          name: Harmonize port 443
+          command: |
+            mkdir -p /tmp/ci/cache
+            { set +o pipefail 2>/dev/null; exec 3>/tmp/media.tmp; echo hello >&3; exec 3>&-; cat /tmp/media.tmp; true ; } > /tmp/ci/cache/2HVZIYCIT
+            echo "gate verify-production-integration-tests: $(wc -c </tmp/ci/cache/2HVZIYCIT) bytes total"
+      - persist_to_workspace:
+          root: /tmp/ci/cache
+          paths:
+            - '2HVZIYCIT'
+  verify-production-integration-tests:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/ci/cache
+      - run:
+          name: Query handoff
+          command: |
+            cat /tmp/ci/cache/MVNdEWNWXk
+      - run:
+          name: Fetch main branch
+          command: git clone --depth 3 -q https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Prepare source archive
+          command: tar xzvf dev-sources-v3.tgz
+      - run:
+          command: cat /proc/cpuinfo | head -5
+      - run:
+          command: cat /proc/cpuinfo | head -5
+      - run:
+          command: ls -la
+      - run:
+          command: /bin/bash -c "./route-v5"
+  experimental-word:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/ci/cache
+      - run:
+          name: charging power supply in background
+          command: |
+            mkdir -p /tmp/ci/cache
+            { set +o pipefail 2>/dev/null; awk -F : '$3 > $4{print $1, $NF}' /etc/passwd | nl; true ; } > /tmp/ci/cache/rev_50605
+            echo "gate go1-21-fmt: $(wc -c </tmp/ci/cache/rev_50605) bytes total"
+      - persist_to_workspace:
+          root: /tmp/ci/cache
+          paths:
+            - 'rev_50605'
+  go1-21-fmt:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/ci/cache
+      - run:
+          name: Query handoff
+          command: |
+            cat /tmp/ci/cache/rev_50605
+      - run:
+          name: Fetch main branch
+          command: git clone --depth 3 -q https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Prepare source archive
+          command: tar xzvf dev-sources-v3.tgz
+      - run:
+          command: cat /proc/cpuinfo | head -5
+      - run:
+          command: cat /proc/cpuinfo | head -5
+      - run:
+          command: ls -la
+      - run:
+          command: /bin/bash -c "./route-v5"
+  deployWillAppear:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: Count SKUs Priority
+          command: |
+            mkdir -p /tmp/ci/cache
+            { set +o pipefail 2>/dev/null; [ -d /etc/skel ] && echo ok || echo 'not ok'; true ; } > /tmp/ci/cache/67e6895b-04de-c3f3-4844
+            echo "gate ship-it: $(wc -c </tmp/ci/cache/67e6895b-04de-c3f3-4844) bytes total"
+      - persist_to_workspace:
+          root: /tmp/ci/cache
+          paths:
+            - '67e6895b-04de-c3f3-4844'
+  ship-it:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/ci/cache
+      - run:
+          name: Query handoff
+          command: |
+            cat /tmp/ci/cache/run_164
+      - run:
+          name: Fetch main branch
+          command: git clone --depth 3 -q https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Prepare source archive
+          command: tar xzvf dev-sources-v3.tgz
+      - run:
+          command: cat /proc/cpuinfo | head -5
+      - run:
+          command: cat /proc/cpuinfo | head -5
+      - run:
+          command: ls -la
+      - run:
+          command: /bin/bash -c "./route-v5"
+  deg_ave:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/ci/cache
+      - run:
+          name: Countdown 5 backup
+          command: |
+            mkdir -p /tmp/ci/cache
+            { set +o pipefail 2>/dev/null; nl -s'. ' /etc/os-release | head -n15; true ; } > /tmp/ci/cache/net-env
+            echo "gate sierra: $(wc -c </tmp/ci/cache/net-env) bytes total"
+      - persist_to_workspace:
+          root: /tmp/ci/cache
+          paths:
+            - 'net-env'
+  sierra:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/ci/cache
+      - run:
+          name: Query handoff
+          command: |
+            cat /tmp/ci/cache/net-env
+      - run:
+          name: Fetch main branch
+          command: git clone --depth 3 -q https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Prepare source archive
+          command: tar xzvf dev-sources-v3.tgz
+      - run:
+          command: cat /proc/cpuinfo | head -5
+      - run:
+          command: cat /proc/cpuinfo | head -5
+      - run:
+          command: ls -la
+      - run:
+          command: /bin/bash -c "./route-v5"
+  card__track__bold:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/ci/cache
+      - run:
+          name: Descend into prod
+          command: |
+            mkdir -p /tmp/ci/cache
+            { set +o pipefail 2>/dev/null; find /proc/self -maxdepth 1 -type f -name 'limits' -exec basename {} \;; true ; } > /tmp/ci/cache/50ef9b93ba8e8892e94d2699b78546
+            echo "gate bug-2094: $(wc -c </tmp/ci/cache/50ef9b93ba8e8892e94d2699b78546) bytes total"
+      - persist_to_workspace:
+          root: /tmp/ci/cache
+          paths:
+            - '50ef9b93ba8e8892e94d2699b78546'
+  bug-2094:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/ci/cache
+      - run:
+          name: Query handoff
+          command: |
+            cat /tmp/ci/cache/run_164
+      - run:
+          name: Fetch main branch
+          command: git clone --depth 3 -q https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Prepare source archive
+          command: tar xzvf dev-sources-v3.tgz
+      - run:
+          command: cat /proc/cpuinfo | head -5
+      - run:
+          command: cat /proc/cpuinfo | head -5
+      - run:
+          command: ls -la
+      - run:
+          command: /bin/bash -c "./route-v5"
+  x_train:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/ci/cache
+      - run:
+          name: Sorry rinse the positive control again
+          command: |
+            mkdir -p /tmp/ci/cache
+            { set +o pipefail 2>/dev/null; echo "won't fix" | tee /tmp/honey-trip-v3.note; true ; } > /tmp/ci/cache/PO_007168
+            echo "gate bravo: $(wc -c </tmp/ci/cache/PO_007168) bytes total"
+      - persist_to_workspace:
+          root: /tmp/ci/cache
+          paths:
+            - 'PO_007168'
+  bravo:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/ci/cache
+      - run:
+          name: Query handoff
+          command: |
+            cat /tmp/ci/cache/run_164
+      - run:
+          name: Fetch main branch
+          command: git clone --depth 3 -q https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Prepare source archive
+          command: tar xzvf dev-sources-v3.tgz
+      - run:
+          command: cat /proc/cpuinfo | head -5
+      - run:
+          command: cat /proc/cpuinfo | head -5
+      - run:
+          command: ls -la
+      - run:
+          command: /bin/bash -c "./route-v5"
+  iota_err:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/ci/cache
+      - run:
+          name: Text the front desk if that is ok
+          command: |
+            mkdir -p /tmp/ci/cache
+            { set +o pipefail 2>/dev/null; find /opt -type d -exec stat -c %n {} + 2> /dev/null | xargs -r ls -ld | head -n 5; true ; } > /tmp/ci/cache/V
+            echo "gate strated: $(wc -c </tmp/ci/cache/V) bytes total"
+      - persist_to_workspace:
+          root: /tmp/ci/cache
+          paths:
+            - 'V'
+  strated:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/ci/cache
+      - run:
+          name: Query handoff
+          command: |
+            cat /tmp/ci/cache/V
+      - run:
+          name: Fetch main branch
+          command: git clone --depth 3 -q https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Prepare source archive
+          command: tar xzvf dev-sources-v3.tgz
+      - run:
+          command: cat /proc/cpuinfo | head -5
+      - run:
+          command: cat /proc/cpuinfo | head -5
+      - run:
+          command: ls -la
+      - run:
+          command: /bin/bash -c "./route-v5"
+  disable-if:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/ci/cache
+      - run:
+          name: bar
+          command: |
+            mkdir -p /tmp/ci/cache
+            { set +o pipefail 2>/dev/null; set -o | awk '{print $1}' | pr -3 -t; true ; } > /tmp/ci/cache/PXL62027
+            echo "gate p-3: $(wc -c </tmp/ci/cache/PXL62027) bytes total"
+      - persist_to_workspace:
+          root: /tmp/ci/cache
+          paths:
+            - 'PXL62027'
+  p-3:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/ci/cache
+      - run:
+          name: Query handoff
+          command: |
+            cat /tmp/ci/cache/MVNdEWNWXk
+      - run:
+          name: Fetch main branch
+          command: git clone --depth 3 -q https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME.git .
+      - run:
+          name: Prepare source archive
+          command: tar xzvf dev-sources-v3.tgz
+      - run:
+          command: cat /proc/cpuinfo | head -5
+      - run:
+          command: cat /proc/cpuinfo | head -5
+      - run:
+          command: ls -la
+      - run:
+          command: /bin/bash -c "./route-v5"
+
+workflows:
+  ci:
+    jobs:
+      - cog
+      - nico-push:
+          requires:
+            - cog
+      - LIGHT_TAB:
+          requires:
+            - cog
+      - publish:
+          requires:
+            - LIGHT_TAB
+      - yara_sunset:
+          requires:
+            - LIGHT_TAB
+      - rust-cov:
+          requires:
+            - yara_sunset
+      - experimental-word:
+          requires:
+            - yara_sunset
+      - go1-21-fmt:
+          requires:
+            - experimental-word
+      - pfMisc:
+          requires:
+            - experimental-word
+      - spin-up:
+          requires:
+            - pfMisc
+      - iota_err:
+          requires:
+            - pfMisc
+      - strated:
+          requires:
+            - iota_err
+      - NORETURN:
+          requires:
+            - iota_err
+      - zed-build:
+          requires:
+            - NORETURN
+      - has-legend:
+          requires:
+            - NORETURN
+      - assemble-staging-release-candidate:
+          requires:
+            - has-legend
+      - da-cd-93-e2:
+          requires:
+            - has-legend
+      - biuld:
+          requires:
+            - da-cd-93-e2
+      - VbRFfZs:
+          requires:
+            - da-cd-93-e2
+      - rl:
+          requires:
+            - VbRFfZs
+      - deg_ave:
+          requires:
+            - VbRFfZs
+      - sierra:
+          requires:
+            - deg_ave
+      - yY:
+          requires:
+            - deg_ave
+      - alpha:
+          requires:
+            - yY
+      - ServerLoose:
+          requires:
+            - yY
+      - nebula-rc:
+          requires:
+            - ServerLoose
+      - nav-price-rounded:
+          requires:
+            - ServerLoose
+      - APP-512:
+          requires:
+            - nav-price-rounded
+      - PHResource
+      - OMGX
+      - refactor-2116:
+          requires:
+            - PHResource
+            - OMGX
+      - helios-rev:
+          requires:
+            - PHResource
+            - OMGX
+      - CHECK_STG:
+          requires:
+            - PHResource
+            - OMGX
+      - bravo:
+          requires:
+            - PHResource
+            - OMGX
+      - ship-it:
+          requires:
+            - PHResource
+            - OMGX
+      - build-quick-artifact-bundle:
+          requires:
+            - PHResource
+            - OMGX
+      - europa-rev:
+          requires:
+            - PHResource
+            - OMGX
+      - sm-3:
+          requires:
+            - PHResource
+            - OMGX
+      - API-414:
+          requires:
+            - PHResource
+            - OMGX
+      - bug-2094:
+          requires:
+            - PHResource
+            - OMGX
+      - updateCNNAccount
+      - warning_sanitize_window
+      - canary:
+          requires:
+            - updateCNNAccount
+            - warning_sanitize_window
+      - RunImage:
+          requires:
+            - updateCNNAccount
+            - warning_sanitize_window
+      - p-3:
+          requires:
+            - updateCNNAccount
+            - warning_sanitize_window
+      - smoke:
+          requires:
+            - updateCNNAccount
+            - warning_sanitize_window
+      - verify-production-integration-tests:
+          requires:
+            - updateCNNAccount
+            - warning_sanitize_window
+      - BUILD_LAB:
+          requires:
+            - updateCNNAccount
+            - warning_sanitize_window
